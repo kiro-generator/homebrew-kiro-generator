@@ -13,9 +13,15 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v6
+
+      - name: brew tap
+        run: brew tap kiro-generator/kiro-generator https://github.com/kiro-generator/homebrew-kiro-generator
+
       - name: brew audit
-        run: brew audit --strict Formula/kiro-generator.rb
+        run: brew audit --strict kiro-generator/kiro-generator/kiro-generator
+
       - name: brew install
-        run: brew install --verbose Formula/kiro-generator.rb
+        run: brew install --verbose kiro-generator/kiro-generator/kiro-generator
+
       - name: brew test
-        run: brew test Formula/kiro-generator.rb
+        run: brew test kiro-generator/kiro-generator/kiro-generator
