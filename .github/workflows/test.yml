@@ -1,0 +1,21 @@
+name: Test Formula
+
+on:
+  push:
+    paths:
+      - 'Formula/**'
+  pull_request:
+    paths:
+      - 'Formula/**'
+
+jobs:
+  test:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: brew audit
+        run: brew audit --strict Formula/kiro-generator.rb
+      - name: brew install
+        run: brew install --verbose Formula/kiro-generator.rb
+      - name: brew test
+        run: brew test Formula/kiro-generator.rb
