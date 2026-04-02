@@ -1,0 +1,34 @@
+name: Update Formula
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 8 * * *'
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - run: pip install nvchecker
+
+      - run: ./update-formula.sh
+        id: update
+
+      - name: create PR
+        if: steps.update.outputs.version != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.update.outputs.version }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b "update/v${VERSION}"
+          git add Formula/kiro-generator.rb
+          git commit -m "chore: bump kiro-generator to v${VERSION}"
+          git push origin "update/v${VERSION}"
+          gh pr create --title "chore: bump kiro-generator to v${VERSION}" --body "Automated version bump" --base main
