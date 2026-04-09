@@ -1,8 +1,8 @@
 class KiroGenerator < Formula
   desc "Kiro Agent CLI configuration management"
   homepage "https://kiro-generator.io"
-  url "https://github.com/kiro-generator/kiro-generator/releases/download/v0.2.2/kg-arm64-darwin.tar.gz"
-  sha256 "f7e36e995079246d5c24ebf4a47e8a51de10120002150b21f25f00eb12eef5fd"
+  url "https://github.com/kiro-generator/kiro-generator/releases/download/v0.3.0/kg-arm64-darwin.tar.gz"
+  sha256 "b13161b985c58249b2a673a665cf6004c7deaeeb0ff835693f3ab8d4fa3f32dd"
   license "MIT"
 
   def install
